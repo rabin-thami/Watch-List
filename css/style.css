@@ -1,0 +1,102 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-font:'Space Grotesk', sans-serif;
+}
+
+main {
+    display: flex;
+    height: 100vh;
+}
+
+main .left-container {
+    width: 8em;
+    display: flex;
+    justify-content: center;
+    border-right: 2px solid #4346501f;
+}
+
+.left-container .vartical-nav{
+    display: flex;
+    margin: 2em;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.vartical-nav span i {
+    font-size: 4rem;
+    color: #F63566;
+}
+
+.vartical-nav ul {
+    color: #434650;
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    margin-top:3em;
+    width: 100%;
+}
+
+.vartical-nav li {
+    font-size: 2rem;
+    list-style-type: none;
+    padding:1em;
+    transition: 0.4s ease;
+    cursor: pointer;
+}
+
+ul li i {
+    transition: 0.2s ease;
+}
+
+
+/* Right Container start */
+.right-container {
+    margin: 3em 4em;
+    width: 100%;
+}
+
+.right-container .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--primary-font);
+}
+
+.top-nav .title {
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+.top-nav .search-section {
+    position: relative;
+}
+
+.top-nav .search-section input[type="text"] {
+    padding: 1em;
+    border-radius: 8px;
+    outline: none;
+    border: 1px solid #43465044;
+    width:  20em;
+    font-size: 1.3rem;
+}
+
+.search-section .fa-magnifying-glass{
+    position: absolute;
+    top: 50%;
+    right: 1em;
+    transform: translateY(-50%);
+    color:#F63566; 
+    font-size: 1.2em;
+}
+
+.top-nav .user-info i{
+    font-size: 2rem;
+    color: #F63566;
+}
