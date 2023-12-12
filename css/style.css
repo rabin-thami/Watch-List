@@ -113,6 +113,14 @@ ul li i:hover {
     grid-template-columns: repeat(3, 1fr);
 }
 
+.content-wrapper .not-found-msg {
+    grid-column: 1 / -1; /* Span across all columns */
+    width: 100%;
+    text-align: center;
+    font-size: 2rem;
+    color: #F63566;
+}
+
 .right-container .movie-container {
     display: flex;
     width: 100%;
@@ -121,6 +129,8 @@ ul li i:hover {
     border: 1px solid #4346501f;
     border-radius: 8px;
     overflow: hidden;
+    justify-content: center;
+    align-items: center;
 }
 
 .movie-container .image-container {
@@ -152,11 +162,11 @@ ul li i:hover {
 }
 
 .movie-info .about-movie {
-    margin-top: 1.1em;
+    /* margin-top: 1.1em; */
 }
 
 .movie-info .movie-title {
-    margin: 0.2em 0;
+    max-width: 90%;
     font-size: 1.2rem;
     color: #434650;
     transition: 0.2s ease;
@@ -165,6 +175,10 @@ ul li i:hover {
 
 .movie-info .movie-title:hover {
     color: #F63566;
+}
+
+.about-movie .movie-description {
+    margin: 0.5em 0;
 }
 
 .about-movie .movie-tag {
@@ -178,7 +192,7 @@ ul li i:hover {
     border-bottom: 1px solid #4346501f;
 }
 
-.about-movie .movie-reviews {
+/* .about-movie .movie-reviews {
     width: 100%;
     height: 2em;
     display: flex;
@@ -193,4 +207,4 @@ ul li i:hover {
     border: 5px solid #fff;
     margin-right: -10px;
 
-}
+} */
