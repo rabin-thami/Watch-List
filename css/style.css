@@ -52,9 +52,12 @@ main .left-container {
 }
 
 ul li i {
-    transition: 0.2s ease;
+    transition: 0.3s ease;
 }
 
+ul li i:hover {
+    color: #F63566;
+}
 
 /* Right Container start */
 .right-container {
@@ -102,7 +105,6 @@ ul li i {
     color: #F63566;
 }
 
-
 .right-container .content-wrapper {
     font-family: var(--primary-font);
     margin-top: 5em;
@@ -134,7 +136,6 @@ ul li i {
     object-fit: fill;
 }
 
-
 .content-wrapper .movie-info {
     /* background-color: #F63566; */
     width: 100%;
@@ -159,9 +160,7 @@ ul li i {
     font-size: 1.2rem;
     color: #434650;
     transition: 0.2s ease;
-    cursor: pointer;
-
-    
+    cursor: pointer;  
 }
 
 .movie-info .movie-title:hover {
