@@ -42,6 +42,12 @@ main .left-container {
 }
 
 
+.left-nav ul li i {
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+
 /*Right-Container Star from here */
 main .right-container{
     width: 100%;
@@ -124,7 +130,7 @@ main .right-container{
 .movie-container .poster-container {
     overflow: hidden;
     border-radius: 8px 0 0 8px;
-    width: calc(100% - 65%);
+    width: 50%
 }
 
 .poster-container img {
@@ -136,12 +142,63 @@ main .right-container{
 .movie-container .info-container{
     padding: 1em;
     position: relative;
-    width: calc(100% - 20%);
+    width: 100%
 }
 
 .info-container span i {
     position: absolute;
-    top: 10;
+    top: 25px;
     right: 15px;
 }
 
+.information h2 {
+    cursor: pointer;
+    color: #434650;
+    transition: 0.2s ease all;
+}
+
+.information h2:hover {
+    color: #F73867;
+}
+.information .title{
+    font-size: 1.1rem;
+    max-width: 90%;
+    font-weight: 600;
+    padding: 0.3em 0;
+}
+
+.information .type {
+    text-transform: capitalize;
+    font-weight: 500;
+    padding: 0.3em 0;
+}
+
+.information .releases-year {
+    padding: 0.3em 0;
+    font-weight: 500;
+}
+
+.content-container .next-button {
+    text-align: center;
+    width: 100%;
+    padding: 1em;
+    margin: 1em 0;
+}
+
+.next-button button {
+    padding: 1em 2em;
+    outline: none;
+    border: none;
+    background-color: #434650;
+    color: #F73867;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.3s ease all;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.next-button button:hover {
+    color: #434650;
+    background-color: #F73867;
+}
