@@ -1,0 +1,147 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --font:'Space Grotesk', sans-serif;
+}
+
+body {
+    font-family: var(--font);
+}
+
+main {
+    height: 100vh;
+    display: flex;
+}
+
+main .left-container {
+    width: 7em;
+    border-right: 1px solid #4346501e;
+}
+
+.left-container .left-nav {
+    color: #F73867;
+    margin: 1em;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    gap: 5em;
+}
+
+.left-nav span {
+    font-size: 4rem;
+}
+
+.left-nav ul li {
+    list-style-type: none;
+    padding: 2em;
+    font-size: 1.4rem;
+}
+
+
+/*Right-Container Star from here */
+main .right-container{
+    width: 100%;
+}
+
+.right-container .top-nav {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* background-color: #F73867; */
+    height: 8em;
+    gap: 1em;
+    align-items: center;
+    padding: 1em;
+}
+
+.top-nav .title{
+    font-size: 2rem;
+}
+
+.top-nav #searchForm {
+    position: relative;
+}
+
+#searchForm input[type="text"] {
+    padding: 1em 2em;
+    border: 1px solid #4346501e;
+    outline: none;
+    border-radius: 6px;
+    width: 80%;
+    font-size: 1.1rem;
+    color: #F73867;
+}
+
+#searchForm input[type="text"]::placeholder {
+    color: #F73867;
+}
+
+#searchForm .fa-magnifying-glass { /* Corrected class name */
+    position: absolute;
+    top: 50%;
+    right: 130px;
+    transform: translateY(-50%);
+    color: #F73867;
+}
+
+.top-nav .user-profle {
+    font-size: 2rem;
+    text-align: right;
+    color: #F73867;
+}
+
+
+.right-container .content-container {
+    /* background-color: #F73867; */
+    height: calc(100% - 8em);
+    padding: 2em;
+    overflow-y: scroll;
+}
+
+.content-container .content-wrapper {
+    gap:1em;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.content-wrapper .error-msg-container {
+    grid-column: 1 / -1;
+    text-align: center;
+}
+
+
+.movie-container {
+    border: 1px solid #4346501e;
+    width: 100%;
+    height: 10em;
+    display: flex;
+    border-radius: 8px;
+}
+
+.movie-container .poster-container {
+    overflow: hidden;
+    border-radius: 8px 0 0 8px;
+    width: calc(100% - 65%);
+}
+
+.poster-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.movie-container .info-container{
+    padding: 1em;
+    position: relative;
+    width: calc(100% - 20%);
+}
+
+.info-container span i {
+    position: absolute;
+    top: 10;
+    right: 15px;
+}
+
