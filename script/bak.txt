@@ -1,0 +1,113 @@
+const formEl = document.querySelector("#searchForm");
+let contentWrapEl = document.querySelector(".content-wrapper");
+let userSearch = ""
+
+formEl.Onsubmit('submit', async (e) => {
+    e.preventDefault();
+    userSearch = formEl.querySelector("#searchMovie").value;
+    formEl.querySelector("#searchMovie").value = "";
+
+    await getSearchMovie(userSearch, 1); // Assuming you start with the first page
+});
+
+async function getSearchMovie(movieName, pageNum) {
+    const response = await fetch(`http://www.omdbapi.com/?apikey=a6f5f021&s=${movieName}&page=${pageNum}`);
+    const dataFromApi = await response.json();
+
+    if (dataFromApi.Response === "True") {
+        renderSearchMovie(dataFromApi.Search);
+        renderPagination(dataFromApi.totalResults);
+    } else {
+        renderError(dataFromApi.Error, movieName);
+    }
+}
+
+function renderSearchMovie(movieData) {
+    let movieHTML = "";
+
+    movieData.forEach(movie => {
+        movieHTML += `
+        <div class="movie-container">
+            <div class="poster-container">
+                <img src="${movie.Poster}" alt="">
+            </div>
+            <div class="info-container">
+                <span>
+                    <i class="fas fa-bookmark"></i>
+                </span>
+                <div class="information">
+                    <h2 class="title" id="${movie.imdbID}">${movie.Title}</h2>
+                    <p class="type">Type : ${movie.Type}</p>
+                    <p class="releases-year">Year: ${movie.Year}</p>
+                </div>
+            </div>
+        </div>
+        `;
+    });
+
+    contentWrapEl.innerHTML = movieHTML;
+}
+
+function renderError(msg, movieName) {
+    contentWrapEl.innerHTML = `
+    <div class="error-msg-container">
+        <h1>"${movieName}", ${msg}</h1>
+    </div>
+    `;
+}
+
+function renderPagination(totalSearch) {
+    let paginationContainer = document.querySelector(".pagination");
+    let totalPage = Math.ceil(totalSearch / 10);
+    paginationContainer.innerHTML = ` 
+        <button class="" id="previous">
+            <i class="fas fa-angle-left"></i>
+            <span>Previous</span>
+        </button>
+        <span id="currentPage"> 1 of ${totalPage} </span>
+        <button class="" id="next">
+            <span>Next</span>
+            <i class="fas fa-angle-right"></i>
+        </button>
+    `;
+
+    let currentPage = 1; // Assuming you start with the first page
+    const currentPageSpan = document.getElementById("currentPage");
+
+    // Add event listeners for pagination buttons
+    const previousBtn = document.getElementById("previous");
+    const nextBtn = document.getElementById("next");
+
+    previousBtn.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            getSearchMovie(userSearch, currentPage);
+            currentPageSpan.textContent = `${currentPage} of ${totalPage}`;
+        }
+    });
+
+    nextBtn.addEventListener('click', () => {
+        if (currentPage < totalPage) {
+            currentPage += 2; // Increment by 2
+            getSearchMovie(userSearch, currentPage);
+            currentPageSpan.textContent = `${currentPage} of ${totalPage}`;
+        }
+    });
+}
+
+function leftMenuHover() {
+    const icons = document.querySelectorAll("ul li i");
+    icons.forEach((icon) => {
+        icon.addEventListener('mouseenter', () => {
+            icon.classList.add('fa-solid');
+            icon.classList.remove('fa-light');
+        });
+
+        icon.addEventListener('mouseleave', () => {
+            icon.classList.remove('fa-solid');
+            icon.classList.add('fa-light');
+        });
+    });
+}
+
+leftMenuHover();
