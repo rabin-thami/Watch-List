@@ -1,6 +1,9 @@
 const formEl = document.querySelector("#searchForm")
 let contentWrapperEl = document.querySelector(".content-wrapper")
 let paginationEl = document.querySelector("#pagination")
+let loadingContainer = document.querySelector(".loading-container")
+
+// some variable define 
 let search = "Avengers"
 let currentPage = 1
 let totalPage
@@ -22,16 +25,27 @@ async function fetchData(userInput, page) {
 
 // main handler
 async function getMovie() {
+    mouseHoverEffect()
+    showLoadingMsg()
     const movieData = await fetchData(search, currentPage)
-
+    
     if(movieData.Response === "True" || movieData.Response === true){
+        hideLoadingMsg()
         renderMovie(movieData)
     } else {
+        hideLoadingMsg()
         let responseError = `Your "${search}", ${movieData.Error}`
         errorMsg(responseError)
     }
 }
 
+function showLoadingMsg() {
+    loadingContainer.classList.remove('hidden');
+}
+
+function hideLoadingMsg() {
+    loadingContainer.classList.add('hidden');
+}
 
 // event listeners 
 formEl.addEventListener('submit', async(e) => {
@@ -44,7 +58,6 @@ formEl.addEventListener('submit', async(e) => {
     currentSearch = formEl.querySelector("#searchMovie").value = ''
 
 })
-
 
 // rendering data
 function renderMovie(movie) {
@@ -60,7 +73,7 @@ function renderMovie(movie) {
             </div>
         <div class="info-container">
             <span>
-                <i class="fas fa-bookmark"></i>
+            <i class="fas fa-bookmark bookmark-icon" data-imdbId="${movie.imdbID}"></i>
             </span>
             <div class="information">
                 <h2 class="title" id="${movie.imdbID}">${movie.Title}</h2>
@@ -74,16 +87,17 @@ function renderMovie(movie) {
     });
     contentWrapperEl.innerHTML = renderHTML
     pagination(totalSearchResult)
+    bookmark()
 }
 
 
 // rendering error
 function errorMsg(msg){
-    contentWrapperEl.innerHTML +=  `
+    contentWrapperEl.innerHTML =  `
     <div class="error-msg-container">
         <h1>${msg}</h1>
     </div>`;
-    
+    paginationEl.innerHTML = ""
 }
 
 
@@ -129,9 +143,35 @@ paginationEl.addEventListener("click", async (event) => {
 });
 
 
+function mouseHoverEffect() {
+    const leftMenuIcon = document.querySelectorAll('ul li i')
+    leftMenuIcon.forEach(icon => {
+        icon.addEventListener('mouseenter', () =>{
+            icon.classList.add('fa-solid');
+            icon.classList.remove('fa-light');
+        })
+
+        icon.addEventListener('mouseleave', () =>{
+            icon.classList.remove('fa-solid');
+            icon.classList.add('fa-light');
+        })
+    })
+
+}
 
 
+//boockmark button 
 
+
+function bookmark(){
+    const bookMarked = document.querySelectorAll(".bookmark-icon");
+
+    bookMarked.forEach(bookId => {
+        bookId.addEventListener("click", (e) => {
+            console.log(e.target.dataset)
+        })
+    })
+}
 
 // initial call
 getMovie()
