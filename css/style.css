@@ -205,3 +205,8 @@ main .right-container{
     font-weight: 700;
     padding: 0 5em;
 }
+
+button:disabled  {
+    cursor: not-allowed;
+    opacity: 0.6;
+}

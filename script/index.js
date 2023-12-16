@@ -1,8 +1,9 @@
 const formEl = document.querySelector("#searchForm")
 let contentWrapperEl = document.querySelector(".content-wrapper")
-let paginationEL = document.querySelector(".pagination")
+let paginationEl = document.querySelector("#pagination")
 let search = "Avengers"
 let currentPage = 1
+let totalPage
 
 // fetching data from API
 async function fetchData(userInput, page) {
@@ -10,7 +11,7 @@ async function fetchData(userInput, page) {
     //checking api status 
 
     if(response.ok){
-        const data = response.json()
+        const data = await response.json()
         return data;
     }else {
         let apiError = "API Service is Down"
@@ -86,30 +87,49 @@ function errorMsg(msg){
 }
 
 
-// pagination 
-function pagination(totalSearch) {
-    let totalPage = Math.ceil(totalSearch / 10)
 
-    paginationEL.innerHTML= `
-        <button class="" id="prev">
+function pagination(totalSearch) {
+    totalPage = Math.ceil(totalSearch / 10)
+
+    paginationEl.innerHTML= `
+        <button id="prev">
         <i class="fas fa-angle-left"></i>
         <span>Previous</span>
         </button>
         <span id="currentPage"> ${currentPage} of ${totalPage} </span>
-        <button class="" id="next">
+        <button id="next">
         <span>Next</span>
         <i class="fas fa-angle-right"></i>
         </button>
     `
 }
 
-
 // currentPage changer
-paginationEL.addEventListener("click", async event => {
-    console.log(event.target.id)
-
-    await getMovie()
+paginationEl.addEventListener("click", async (event) => {
+    const btnElement = event.target.closest('button');
+    
+    if (btnElement) {
+        const btnElementId = btnElement.id;
+        if(btnElementId ==="prev"){
+            if(currentPage <= 1){
+                btnElement.disabled = true
+            }else if( currentPage > 1){
+                currentPage--
+                await getMovie()
+            }
+        }else if(btnElementId === "next"){
+            if(currentPage < totalPage){
+                currentPage++
+                await getMovie()
+            }else if (currentPage === totalPage) {
+                btnElement.disabled = true
+            }
+        }
+    }
 });
+
+
+
 
 
 
