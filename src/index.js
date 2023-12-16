@@ -23,29 +23,7 @@ async function fetchData(userInput, page) {
 }
 
 
-// main handler
-async function getMovie() {
-    mouseHoverEffect()
-    showLoadingMsg()
-    const movieData = await fetchData(search, currentPage)
-    
-    if(movieData.Response === "True" || movieData.Response === true){
-        hideLoadingMsg()
-        renderMovie(movieData)
-    } else {
-        hideLoadingMsg()
-        let responseError = `Your "${search}", ${movieData.Error}`
-        errorMsg(responseError)
-    }
-}
 
-function showLoadingMsg() {
-    loadingContainer.classList.remove('hidden');
-}
-
-function hideLoadingMsg() {
-    loadingContainer.classList.add('hidden');
-}
 
 // event listeners 
 formEl.addEventListener('submit', async(e) => {
@@ -86,10 +64,33 @@ function renderMovie(movie) {
        `
     });
     contentWrapperEl.innerHTML = renderHTML
-    pagination(totalSearchResult)
     bookmark()
+    pagination(totalSearchResult)
 }
 
+// main handler
+async function getMovie() {
+    mouseHoverEffect()
+    showLoadingMsg()
+    const movieData = await fetchData(search, currentPage)
+    
+    if(movieData.Response === "True" || movieData.Response === true){
+        hideLoadingMsg()
+        renderMovie(movieData)
+    } else {
+        hideLoadingMsg()
+        let responseError = `Your "${search}", ${movieData.Error}`
+        errorMsg(responseError)
+    }
+}
+
+function showLoadingMsg() {
+    loadingContainer.classList.remove('hidden');
+}
+
+function hideLoadingMsg() {
+    loadingContainer.classList.add('hidden');
+}
 
 // rendering error
 function errorMsg(msg){
@@ -160,18 +161,50 @@ function mouseHoverEffect() {
 }
 
 
-//boockmark button 
-
-
-function bookmark(){
-    const bookMarked = document.querySelectorAll(".bookmark-icon");
-
-    bookMarked.forEach(bookId => {
+//bookmark button 
+function bookmark() {
+    const bookMarkedimdbID = document.querySelectorAll(".bookmark-icon");
+    bookMarkedimdbID.forEach(bookId => {
         bookId.addEventListener("click", (e) => {
-            console.log(e.target.dataset)
-        })
-    })
+            checkBookmark({
+                imdbID: e.target.dataset.imdbid,
+                movieTitle: e.target.closest(".movie-container").querySelector(".information h2").textContent
+            });
+        });
+    });
+
 }
+
+//check movie adready exit or not 
+document.addEventListener("DOMContentLoaded", () => {
+    updateBookmarkNotification();
+});
+
+function updateBookmarkNotification() {
+    const bookMarkNotifcation = document.querySelector(".bookmark-notification");
+    const spanElement = bookMarkNotifcation.querySelector("span");
+    spanElement.textContent = localStorage.length;
+
+    if (localStorage.length > 0) {
+        bookMarkNotifcation.classList.remove('hidden');
+    } else {
+        bookMarkNotifcation.classList.add('hidden');
+    }
+}
+
+function checkBookmark(movieData) {
+    if (localStorage.getItem(movieData.imdbID) !== null) {
+        console.log('Movie already exists in localStorage');
+    } else {
+        localStorage.setItem(movieData.imdbID, movieData.movieTitle);
+        console.log('Movie added to localStorage');
+    }
+
+    updateBookmarkNotification();
+}
+
+
+
 
 // initial call
 getMovie()

@@ -8,6 +8,7 @@
     --font:'Space Grotesk', sans-serif;
 }
 
+
 body {
     font-family: var(--font);
 }
@@ -83,7 +84,7 @@ main .left-container {
     position: relative;
 }
 
- ul .bookmark .notification {
+ ul .bookmark .bookmark-notification {
     position: absolute;
     background-color: #F73867;
     width: 1em;
@@ -99,7 +100,11 @@ main .left-container {
     transform: translateY(-50%);
 }
 
-ul .notification span {
+.hidden{
+    visibility: hidden;
+}
+
+ul .bookmark-notification span {
     font-size: 0.9rem;
     color: #fff;
 }
