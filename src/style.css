@@ -104,6 +104,13 @@ main .left-container {
     visibility: hidden;
 }
 
+.already-msg {
+    font-size: 1.5rem;
+    color: #fff;
+    font-weight: 700;
+    transition: 1s ease all;
+}
+
 ul .bookmark-notification span {
     font-size: 0.9rem;
     color: #fff;

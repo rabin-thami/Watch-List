@@ -64,7 +64,7 @@ function renderMovie(movie) {
        `
     });
     contentWrapperEl.innerHTML = renderHTML
-    bookmark()
+    bookmark(movie.Search)
     pagination(totalSearchResult)
 }
 
@@ -85,10 +85,17 @@ async function getMovie() {
 }
 
 function showLoadingMsg() {
+    loadingContainer.innerHTML = `
+        <div class="loading-element"></div>
+    `
+
     loadingContainer.classList.remove('hidden');
 }
 
 function hideLoadingMsg() {
+    loadingContainer.innerHTML = `
+        <div class="loading-element"></div>
+    `
     loadingContainer.classList.add('hidden');
 }
 
@@ -156,24 +163,32 @@ function mouseHoverEffect() {
             icon.classList.remove('fa-solid');
             icon.classList.add('fa-light');
         })
+
+        icon.addEventListener('click', (e) => {
+            if(e.target.id === 'bookmarkIcon'){
+                getDataFromLocalStorage()
+            }
+        })
     })
 
 }
 
 
 //bookmark button 
-function bookmark() {
+function bookmark(data) {
     const bookMarkedimdbID = document.querySelectorAll(".bookmark-icon");
     bookMarkedimdbID.forEach(bookId => {
         bookId.addEventListener("click", (e) => {
-            checkBookmark({
-                imdbID: e.target.dataset.imdbid,
-                movieTitle: e.target.closest(".movie-container").querySelector(".information h2").textContent
-            });
+            const clickedImdbID = e.target.dataset.imdbid;
+
+            const filteredData = data.filter(item => item.imdbID === clickedImdbID);
+            
+            checkBookmark(filteredData);
         });
     });
-
 }
+
+
 
 //check movie adready exit or not 
 document.addEventListener("DOMContentLoaded", () => {
@@ -192,19 +207,60 @@ function updateBookmarkNotification() {
     }
 }
 
-function checkBookmark(movieData) {
-    if (localStorage.getItem(movieData.imdbID) !== null) {
-        console.log('Movie already exists in localStorage');
-    } else {
-        localStorage.setItem(movieData.imdbID, movieData.movieTitle);
-        console.log('Movie added to localStorage');
-    }
+function checkBookmark(filteredData) {
+    loadingContainer.classList.remove('hidden');
+
+    const tempElement = document.createElement('div');
+    tempElement.classList.add("already-msg");
+
+    filteredData.forEach(filtered => {
+        if (localStorage.getItem(filtered.imdbID) !== null) {
+            tempElement.textContent = 'Movie already exists in Your WatchList';
+        } else {
+            localStorage.setItem(filtered.imdbID, JSON.stringify(filtered));
+            tempElement.textContent = 'Movie added Your WatchList Successfully';
+        }
+    });
+
+    loadingContainer.innerHTML = tempElement.outerHTML;
+
+    setTimeout(() => {
+        loadingContainer.innerHTML = ''; // Clear the content
+        loadingContainer.classList.add('hidden');
+    }, 1000);
 
     updateBookmarkNotification();
 }
 
 
+// getting data from book mark
+function getDataFromLocalStorage () {
+    let keys = Object.keys(localStorage);
+    let apiFormatData = {
+      Search: [],
+      totalResults: keys.length.toString(),
+      Response: "True"
+    };
+  
+    keys.forEach(function (key) {
+      let storedData = localStorage.getItem(key);
+      let parsedData = JSON.parse(storedData);
+      let bookMarked = true
+      apiFormatData.Search.push(parsedData);
+    });
+    console.log(apiFormatData)
+    renderMovie(apiFormatData)
+  }
+  
+  
+  
+  
 
+
+
+
+
+//redering the book mark
 
 // initial call
 getMovie()
