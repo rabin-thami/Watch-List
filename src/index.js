@@ -11,8 +11,8 @@ let totalPage
 // fetching data from API
 async function fetchData(userInput, page) {
     const response = await fetch(`https://www.omdbapi.com/?apikey=a6f5f021&s=${userInput}&page=${page}`)
+    
     //checking api status 
-
     if(response.ok){
         const data = await response.json()
         return data;
@@ -21,9 +21,6 @@ async function fetchData(userInput, page) {
         errorMsg(apiError)
     }
 }
-
-
-
 
 // event listeners 
 formEl.addEventListener('submit', async(e) => {
@@ -43,6 +40,12 @@ function renderMovie(movie) {
     let movieArry = movie.Search
     let renderHTML = ""
 
+    let booked = movie.alreadyBooked
+
+    if(booked != null) {
+        booked == "not-yet"
+    }
+
     movieArry.forEach(movie => {
        renderHTML += `
         <div class="movie-container">
@@ -51,10 +54,12 @@ function renderMovie(movie) {
             </div>
         <div class="info-container">
             <span>
-            <i class="fas fa-bookmark bookmark-icon" data-imdbId="${movie.imdbID}"></i>
+            <i class="fas fa-bookmark bookmark-icon" data-imdbId="${movie.imdbID}" data-bookmark=${booked}></i>
             </span>
             <div class="information">
-                <h2 class="title" id="${movie.imdbID}">${movie.Title}</h2>
+                <h2 class="title">
+                    <a href="/src/preview.html?i=${movie.imdbID}">${movie.Title}</a>
+                </h2>
                 <p class="type">Type : ${movie.Type}</p>
                 <p class="releases-year">Year: ${movie.Year}</p>
             </div>
@@ -108,8 +113,7 @@ function errorMsg(msg){
     paginationEl.innerHTML = ""
 }
 
-
-
+// rendering the pagination
 function pagination(totalSearch) {
     totalPage = Math.ceil(totalSearch / 10)
 
@@ -150,7 +154,7 @@ paginationEl.addEventListener("click", async (event) => {
     }
 });
 
-
+// mouseHoverEffect for left Menu
 function mouseHoverEffect() {
     const leftMenuIcon = document.querySelectorAll('ul li i')
     leftMenuIcon.forEach(icon => {
@@ -173,54 +177,73 @@ function mouseHoverEffect() {
 
 }
 
-
 //bookmark button 
 function bookmark(data) {
     const bookMarkedimdbID = document.querySelectorAll(".bookmark-icon");
     bookMarkedimdbID.forEach(bookId => {
         bookId.addEventListener("click", (e) => {
-            const clickedImdbID = e.target.dataset.imdbid;
+            const clickedImdbID = e.target.dataset.imdbid
+            const isBooked = e.target.dataset.bookmark
 
-            const filteredData = data.filter(item => item.imdbID === clickedImdbID);
+            if (isBooked === "true") {
+                localStorage.removeItem(clickedImdbID);
+                checkBookmark(null)
+            } else {
+                const filteredData = data.filter(item => item.imdbID === clickedImdbID);
+                checkBookmark(filteredData)
+            }
             
-            checkBookmark(filteredData);
         });
     });
 }
 
 
 
+
 //check movie adready exit or not 
 document.addEventListener("DOMContentLoaded", () => {
-    updateBookmarkNotification();
+    updateBookmarkNotification()
 });
 
+
+//functin to update bookmark notification
 function updateBookmarkNotification() {
-    const bookMarkNotifcation = document.querySelector(".bookmark-notification");
-    const spanElement = bookMarkNotifcation.querySelector("span");
-    spanElement.textContent = localStorage.length;
+    const bookMarkNotifcation = document.querySelector(".bookmark-notification")
+    const spanElement = bookMarkNotifcation.querySelector("span")
+    spanElement.textContent = localStorage.length
+
 
     if (localStorage.length > 0) {
-        bookMarkNotifcation.classList.remove('hidden');
+        bookMarkNotifcation.classList.remove('hidden')
+
     } else {
-        bookMarkNotifcation.classList.add('hidden');
+        bookMarkNotifcation.classList.add('hidden')
     }
 }
 
+
+//function to check the bookmark
 function checkBookmark(filteredData) {
-    loadingContainer.classList.remove('hidden');
+    loadingContainer.classList.remove('hidden')
 
-    const tempElement = document.createElement('div');
-    tempElement.classList.add("already-msg");
+    const tempElement = document.createElement('div')
+    tempElement.classList.add("already-msg")
 
-    filteredData.forEach(filtered => {
-        if (localStorage.getItem(filtered.imdbID) !== null) {
-            tempElement.textContent = 'Movie already exists in Your WatchList';
-        } else {
-            localStorage.setItem(filtered.imdbID, JSON.stringify(filtered));
-            tempElement.textContent = 'Movie added Your WatchList Successfully';
-        }
-    });
+    if(filteredData === null) {
+        getDataFromLocalStorage()
+        tempElement.textContent = 'Item Remove from your Watch List';
+        
+    }else {
+        filteredData.forEach(filtered => {
+            if (localStorage.getItem(filtered.imdbID) !== null) {
+                tempElement.textContent = 'Movie already exists in Your WatchList';
+            }else{
+                localStorage.setItem(filtered.imdbID, JSON.stringify(filtered));
+                tempElement.textContent = 'Movie added Your WatchList Successfully';
+            }
+        });
+
+    }
 
     loadingContainer.innerHTML = tempElement.outerHTML;
 
@@ -239,28 +262,17 @@ function getDataFromLocalStorage () {
     let apiFormatData = {
       Search: [],
       totalResults: keys.length.toString(),
-      Response: "True"
+      Response: "True",
+      alreadyBooked: 'true'
     };
   
     keys.forEach(function (key) {
       let storedData = localStorage.getItem(key);
       let parsedData = JSON.parse(storedData);
-      let bookMarked = true
       apiFormatData.Search.push(parsedData);
     });
-    console.log(apiFormatData)
     renderMovie(apiFormatData)
   }
-  
-  
-  
-  
-
-
-
-
-
-//redering the book mark
 
 // initial call
 getMovie()
