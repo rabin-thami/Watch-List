@@ -224,13 +224,14 @@ main .right-container{
     cursor: pointer;
 }
 
-.information h2 {
+.information h2 a{
     cursor: pointer;
     color: #434650;
     transition: 0.2s ease all;
+    text-decoration: none;
 }
 
-.information h2:hover {
+.information h2 a:hover {
     color: #F73867;
 }
 

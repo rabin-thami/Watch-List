@@ -10,7 +10,7 @@ let totalPage
 
 // fetching data from API
 async function fetchData(userInput, page) {
-    const response = await fetch(`https://www.omdbapi.com/?apikey=a6f5f021&s=${userInput}&page=${page}`)
+    const response = await fetch(`https://www.omdbapi.com/?apikey=a6f5f021&s=${userInput}&page=${page}&type=movie`)
     
     //checking api status 
     if(response.ok){
@@ -47,10 +47,18 @@ function renderMovie(movie) {
     }
 
     movieArry.forEach(movie => {
+
+        let imgSrc;
+
+        if(movie.Poster === "N/A") {
+            imgSrc = "/image/img-not-found.jpg"
+        }else {
+            imgSrc = movie.Poster
+        }
        renderHTML += `
         <div class="movie-container">
             <div class="poster-container">
-                <img src="${movie.Poster}" alt="">
+                <img src="${imgSrc}" alt="">
             </div>
         <div class="info-container">
             <span>
