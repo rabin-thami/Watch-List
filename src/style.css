@@ -285,3 +285,75 @@ main .right-container{
     cursor: not-allowed;
     opacity: 0.6;
 }
+
+
+
+/* single View star from here */
+main .single-view {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    justify-content: center;
+    padding: 2em;
+    display: flex;
+    z-index: 1;
+}
+
+
+.single-view-container {
+    background-color: aqua;
+    width: 30%;
+    position: relative;
+}
+
+.single-view-container .close-btn {
+    position: absolute;
+    top: -0.5em;
+    right: -0.5em;
+    font-size: 2rem;
+    color: #434650;
+    transition: 0.3s all ease;
+    cursor: pointer;
+    
+}
+
+.close-btn:hover {
+    color: #F73867;
+}
+
+.single-view .single-movie-full-details {
+    padding: 0.5em 1em;
+}
+
+.single-movie-full-details .single-movie-title {
+    margin: 1em 0;
+}
+
+.single-movie-full-details .single-image-container {
+    width: 100%;
+    height: 15em;
+    overflow: hidden;
+    background-color:#F73867;
+    margin: 1em 0;
+}
+
+.single-image-container .single-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+}
+
+
+.single-movie-full-details p {
+    font-size: 1.2rem;
+}
+
+
+.single-movie-full-details .single-more-details {
+    display: flex;
+    margin: 1em 0;
+    font-size: 0.5rem;
+}
+
+
