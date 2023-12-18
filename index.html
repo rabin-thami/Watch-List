@@ -3,30 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watch List</title>
+    <link rel="stylesheet" href="src/style.css">
+    <!--Google font link-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Fontawsone  CSS link -->
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-thin.css">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-solid.css">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-regular.css">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-light.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
-    <title>Watch List</title>
 </head>
 <body>
+    <section class="loading-container hidden">
+        
+    </section>
     <main>
         <section class="left-container">
-            <nav class="vartical-nav">
-                <span class="nav-logo">
-                    <i class="fa-regular fa-circle-play"></i>
+            <nav class="left-nav">
+                <span class="logo-text">
+                    <i class="fa-solid fa-face-smile-wink"></i>
                 </span>
                 <ul>
-                    <li>
-                        <i class="fa-light fa-square-check"></i>
-                    </li>
-                    <li>
-                        <i class="fa-light fa-bookmark"></i>
+                    <li class="bookmark" >
+                        <i class="fa-light fa-bookmark" id="bookmarkIcon"></i>
+                        <div class="bookmark-notification hidden">
+                            <span>1</span>
+                        </div>
                     </li>
                     <li>
                         <i class="fa-light fa-calendar-plus"></i>
@@ -42,41 +47,29 @@
         </section>
         <section class="right-container">
             <nav class="top-nav">
-                <p class="title">WATCHLIST</p>
-                <div class="search-section">
-                    <input type="text" placeholder="Search" id="search">
-                    <i class="fa-sharp fa-solid fa-magnifying-glass" id="magnifyingGlass"></i>
-                </div>
-                <div class="user-info">
-                    <i class="fas fa-user-circle"></i>
+                <h1 class="title">WATCHLIST</h1>
+                <form id="searchForm">
+                    <input type="text" placeholder="Search" id="searchMovie"/>
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </form>
+                <div class="user-profle">
+                    <i class="fa-sharp fa-light fa-circle-user"></i>
                 </div>
             </nav>
-            <div class="content-wrapper">
-                <!-- <div class="movie-container">
-                    <div class="image-container">
-                        <img src="image/avater.jpg" alt="Movie image">
-                    </div>
-                    <div class="movie-info">
-                        <span>
-                            <i class="fa-regular fa-bookmark"></i>
-                        </span>
-                        <div class="about-movie">
-                            <h2 class="movie-title">Guardians of the Galaxy Vol. 2</h2>
-                            <p class="movie-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Et, quisquam.</p>
-                            <hr>
-                            <p class="movie-tag">Action, Advanture</p>
-                            <div class="movie-reviews">
-                                <img src="image/avater.jpg" alt="hh">
-                                <img src="image/avater.jpg" alt="">
-                                <img src="image/avater.jpg" alt="">
-                            </div>
-                        </div>
-                    </div>      
-                </div> -->
+            <div class="content-container">
+                <div class="content-wrapper">
+                    <!-- Error Message Render here -->
+                    <!-- Search Movie redner here -->
+                    <!-- Rendering the Bookmark -->
+                    
+                </div>
+                <div class="pagination" id="pagination">
+                <!-- rendering from js -->
+                </div>
             </div>
-            <button>NEXT</button>
         </section>
     </main>
-    <script src="script/index.js"></script>
+
+    <script src="src/index.js"></script>
 </body>
 </html>

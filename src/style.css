@@ -1,0 +1,286 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --font:'Space Grotesk', sans-serif;
+}
+
+
+body {
+    font-family: var(--font);
+}
+
+body .loading-container {
+    width: 100%;
+    height: 100vh;
+    background-color: #434650c7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 1;
+}
+
+.loading-container .loading-element {
+    width: 10em;
+    height: 10em;
+    border-radius: 50%;
+    border: 1em solid #F73867;
+    border-top: 1em solid #434650;
+    animation: loadingSpain 1s linear infinite;
+}
+
+body .hidden {
+    display: none;
+    z-index: -99;
+}
+
+@keyframes loadingSpain {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+main {
+    height: 100vh;
+    display: flex;
+}
+
+main .left-container {
+    width: 7em;
+    border-right: 1px solid #4346501e;
+}
+
+.left-container .left-nav {
+    color: #F73867;
+    margin: 1em;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    gap: 5em;
+}
+
+.left-nav span {
+    font-size: 4rem;
+}
+
+.left-nav ul li {
+    list-style-type: none;
+    padding: 2em;
+    font-size: 1.4rem;
+}
+
+
+.left-nav ul li i {
+    cursor: pointer;
+    transition: 0.3s ease all;
+}
+
+
+.left-nav ul .bookmark {
+    position: relative;
+}
+
+ ul .bookmark .bookmark-notification {
+    position: absolute;
+    background-color: #F73867;
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    color: #434650;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 45px;
+    right: 40px;
+    transform: translateY(-50%);
+}
+
+.hidden{
+    visibility: hidden;
+}
+
+.already-msg {
+    font-size: 1.5rem;
+    color: #fff;
+    font-weight: 700;
+    transition: 1s ease all;
+}
+
+ul .bookmark-notification span {
+    font-size: 0.9rem;
+    color: #fff;
+}
+
+/*Right-Container Star from here */
+main .right-container{
+    width: 100%;
+}
+
+.right-container .top-nav {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* background-color: #F73867; */
+    height: 8em;
+    gap: 1em;
+    align-items: center;
+    padding: 1em;
+}
+
+.top-nav .title{
+    font-size: 2rem;
+}
+
+.top-nav #searchForm {
+    position: relative;
+}
+
+#searchForm input[type="text"] {
+    padding: 1em 2em;
+    border: 1px solid #4346501e;
+    outline: none;
+    border-radius: 6px;
+    width: 80%;
+    font-size: 1.1rem;
+    color: #F73867;
+}
+
+#searchForm input[type="text"]::placeholder {
+    color: #F73867;
+}
+
+#searchForm .fa-magnifying-glass {
+    position: absolute;
+    top: 50%;
+    right: 130px;
+    transform: translateY(-50%);
+    color: #F73867;
+}
+
+.top-nav .user-profle {
+    font-size: 2rem;
+    text-align: right;
+    color: #F73867;
+}
+
+
+.right-container .content-container {
+    /* background-color: #F73867; */
+    height: calc(100% - 8em);
+    padding: 1em;
+    overflow-y: scroll;
+}
+
+.content-container .content-wrapper {
+    gap:1em;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.content-wrapper .error-msg-container {
+    grid-column: 1 / -1;
+    text-align: center;
+}
+
+.movie-container {
+    border: 1px solid #4346501e;
+    width: 100%;
+    height: 9em;
+    display: flex;
+    border-radius: 8px;
+}
+
+.movie-container .poster-container {
+    overflow: hidden;
+    border-radius: 8px 0 0 8px;
+    width: 50%
+}
+
+.poster-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.movie-container .info-container{
+    padding: 1em;
+    position: relative;
+    width: 100%
+}
+
+.info-container span i {
+    position: absolute;
+    top: 25px;
+    right: 15px;
+    transition: 0.2s all ease;
+}
+
+.info-container span i:hover {
+    color: #F73867;
+    cursor: pointer;
+}
+
+.information h2 {
+    cursor: pointer;
+    color: #434650;
+    transition: 0.2s ease all;
+}
+
+.information h2:hover {
+    color: #F73867;
+}
+
+.information .title{
+    font-size: 1.1rem;
+    max-width: 90%;
+    font-weight: 600;
+    padding: 0.3em 0;
+}
+
+.information .type {
+    text-transform: capitalize;
+    font-weight: 500;
+    padding: 0.3em 0;
+}
+
+.information .releases-year {
+    padding: 0.3em 0;
+    font-weight: 500;
+}
+
+.content-container .pagination {
+    text-align: center;
+    width: 100%;
+    padding: 1em;
+    margin: 1em 0;
+}
+
+.pagination button {
+    padding: 1em;
+    outline: none;
+    border: 1px solid #4346501e;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.3s ease all;
+    font-weight: 700;
+    background-color: transparent;
+    color: #434650;
+}
+
+.pagination button:hover {
+    background-color: #F73867;
+}
+
+.pagination #currentPage{
+    font-weight: 700;
+    padding: 0 5em;
+}
+
+.pagination button:disabled  {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
