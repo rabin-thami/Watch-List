@@ -73,7 +73,6 @@ main .left-container {
     font-size: 1.4rem;
 }
 
-
 .left-nav ul li i {
     cursor: pointer;
     transition: 0.3s ease all;
@@ -224,17 +223,19 @@ main .right-container{
     cursor: pointer;
 }
 
-.information h2 {
+.information .title a {
+    text-decoration: none;
     cursor: pointer;
     color: #434650;
     transition: 0.2s ease all;
 }
 
-.information h2:hover {
+.information .title a:hover {
     color: #F73867;
 }
 
 .information .title{
+    text-decoration: none;
     font-size: 1.1rem;
     max-width: 90%;
     font-weight: 600;
